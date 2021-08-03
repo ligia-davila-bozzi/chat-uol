@@ -39,23 +39,15 @@ main{
     margin-top: 80px;
 }
 
-main div{
+main > div{
     border-radius: 2px;
     margin-bottom: 4px;
     min-height: 40px;
-    padding-left: 8px;
-    padding-right: 9px;
+    padding: 0 9px 0 8px;
     display: flex;
     align-items: center;
-    flex-wrap: wrap;
-    padding-top: 10px;
-    padding-bottom: 10px;
 }
 
-main div > span{
-    margin-right: 9px;
-    margin-top: 4px;
-}
 
 .status{
     background-color: #DCDCDC;
@@ -95,6 +87,7 @@ main div > span{
 input{
     border: none;
     font-family: inherit;
+    font-size: 18px;
 }
 
 input::placeholder{
@@ -102,6 +95,7 @@ input::placeholder{
     font-style: italic;
     font-size: 18px;
     color: black;
+    opacity: 1;
 }
 
 input:focus{
