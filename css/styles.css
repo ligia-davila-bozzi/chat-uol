@@ -4,6 +4,7 @@
 
 body{
     font-family: 'Roboto', sans-serif;
+    background-color: #f3f3f3;
 }
 
 nav{
@@ -32,7 +33,6 @@ nav ion-icon{
 }
 
 main{
-    background-color: #f3f3f3;
     height: 100vh;
     padding-top: 26px;
     font-size: 14px;
@@ -41,6 +41,7 @@ main{
 
 main div{
     border-radius: 2px;
+    margin-bottom: 4px;
     min-height: 40px;
     padding: 10px 9px 10px 8px;
     display: flex;
@@ -60,7 +61,7 @@ pre{
     background-color: #FFFFFF;
 }
 
-.private-message{
+.private_message{
     background-color: #FFDEDE;
 }
 
