@@ -33,10 +33,11 @@ nav ion-icon{
 }
 
 main{
-    height: 100vh;
+    height: 100%;
     padding-top: 26px;
     font-size: 14px;
     margin-top: 80px;
+    margin-bottom: 84px;
 }
 
 main div{
@@ -51,6 +52,7 @@ main div{
 
 pre{
     white-space: pre-wrap;
+    word-break: break-all;
 }
 
 .status{
