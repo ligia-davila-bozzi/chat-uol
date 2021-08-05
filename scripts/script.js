@@ -73,6 +73,20 @@ function isItYou(messageName){
     else return false;
 }
 
+function sendMessage(){
+    const message = document.querySelector("input").value;
+
+    const promise = axios.post("https://mock-api.bootcamp.respondeai.com.br/api/v3/uol/messages", {
+        from: username,
+        to: "Todos",
+        text: message,
+        type: "message"
+    });
+
+    document.querySelector("input").value = "";
+    promise.then(getMessages);
+}
+
 
 enterRoom();
 
