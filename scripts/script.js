@@ -1,4 +1,4 @@
-let username;
+let username, last_message;
 
 function enterRoom(){
     username = prompt("Qual o seu nome?");
@@ -47,7 +47,7 @@ function showMessages(response){
             </div>
             `
         }
-        else{
+        else if(response.data[i].type === "private_message"){
             if(isItYou(response.data[i].from) || isItYou(response.data[i].to)){
                 main.innerHTML += `
                 <div class=${response.data[i].type}>
@@ -56,16 +56,20 @@ function showMessages(response){
                 `
             }
         }
-        
-        
     }
 
-    scrollToLastMessage(response);
+    scrollMessages();
+
 }
 
-function scrollToLastMessage(response){
-    const div = document.querySelectorAll("div")[response.data.length - 1];
-    div.scrollIntoView();
+function scrollMessages(){
+    const messages = document.querySelectorAll("main div");
+    const new_last_message = messages[messages.length - 1];
+    if(new_last_message !== last_message){
+        new_last_message.scrollIntoView();
+        last_message = new_last_message;
+    }
+    
 }
 
 function isItYou(messageName){
@@ -87,6 +91,15 @@ function sendMessage(){
     promise.then(getMessages);
 }
 
+function enterKey(){
+    document.querySelector("input").addEventListener("keypress", function(event){
+        if(event.keyCode === 13){
+            document.querySelector(".send-button").click();
+        }
+    })
+}
+
+enterKey();
 
 enterRoom();
 
