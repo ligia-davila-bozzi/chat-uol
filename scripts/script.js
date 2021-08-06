@@ -12,7 +12,7 @@ function enterRoom(){
     promise.catch(validateName);
     setInterval(getMessages, 3000);
     setInterval(maintainConexion, 5000);
-    setInterval(getParticipants, 5000);
+    setInterval(getParticipants, 10000);
     
 }
 
@@ -134,7 +134,6 @@ function getParticipants(){
 function showParticipants(participants){
     const contacts = document.querySelector(".contacts");
     contacts.innerHTML = "";
-    console.log(participants);
 
     if(checkedPerson === undefined){
         contacts.innerHTML += `
@@ -213,14 +212,10 @@ function select(element){
     if(document.querySelector(".contact .check-on").classList.contains("participant")){
         checkedPerson = document.querySelector(".contact .check-on span").innerHTML;
     }
-
-    if(document.querySelector(".visibility .check-on").classList.contains("public")){
+    else{
         checkedPerson = undefined;
     }
 
-    
-
-    console.log(checkedPerson);
     checkReserved();
 }
 

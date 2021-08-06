@@ -52,8 +52,9 @@ main div {
 }
 
 pre {
-    white-space: pre-wrap;
     overflow-wrap: break-word;
+    white-space: pre-wrap;
+    hyphens: auto;
 }
 
 .status {
