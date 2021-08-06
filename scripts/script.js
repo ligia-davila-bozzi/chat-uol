@@ -1,4 +1,5 @@
-let username, last_message;
+let username;
+let lastMessage = {};
 
 function enterRoom(){
     username = prompt("Qual o seu nome?");
@@ -58,18 +59,18 @@ function showMessages(response){
         }
     }
 
+
     scrollMessages();
 
 }
 
 function scrollMessages(){
     const messages = document.querySelectorAll("main div");
-    const new_last_message = messages[messages.length - 1];
-    if(new_last_message !== last_message){
-        new_last_message.scrollIntoView();
-        last_message = new_last_message;
+    const newLastMessage = messages[messages.length - 1];
+    if(newLastMessage.innerHTML !== lastMessage.innerHTML){
+        newLastMessage.scrollIntoView();
+        lastMessage = newLastMessage;
     }
-    
 }
 
 function isItYou(messageName){
@@ -99,7 +100,12 @@ function enterKey(){
     })
 }
 
+function showParticipants(){
+    const modal = document.querySelector(".modal");
+    modal.style.display = "initial";
+}
+
 enterKey();
 
-enterRoom();
+
 

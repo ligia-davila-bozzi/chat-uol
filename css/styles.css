@@ -113,3 +113,79 @@ input:focus{
     font-size: 26px;
 }
 
+.modal{
+    width: 100%;
+    height: 100%;
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 2;
+    background-color: rgba(0, 0, 0, 0.6);
+    overflow: auto;
+    display: none;
+}
+
+.sidebar{
+    width: 69%;
+    height: 100%;
+    background-color: #FFFFFF;
+    position: fixed;
+    right: 0;
+    top: 0;
+    font-size: 16px;
+}
+
+.choose-contact{
+    font-weight: 700;
+    height: 84px;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+}
+
+.choose-visibility{
+    font-weight: 700;
+    height: 66px;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.contact{
+    margin-left: 17px;
+    display: flex;
+    align-items: center;
+}
+
+.contact:not(:last-child), .visibility:not(:last-child){
+    margin-bottom: 10px;
+}
+
+.contact ion-icon{
+    font-size: 25px;
+    margin-right: 7px;
+}
+
+.name-and-check{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 75%;
+}
+
+.visibility{
+    margin-left: 20px;
+    display: flex;
+    align-items: center;
+}
+
+.visibility ion-icon{
+    font-size: 22px;
+    margin-right: 7px;
+}
+
+
+
