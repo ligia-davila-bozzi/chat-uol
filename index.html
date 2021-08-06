@@ -13,7 +13,7 @@
     
     <nav>
         <img src="images/uol.jpg" alt="Bate-papo Uol">
-        <ion-icon name="people" onclick="showParticipants();"></ion-icon>
+        <ion-icon name="people" onclick="showParticipantsMenu();"></ion-icon>
     </nav>
 
     <main>
@@ -55,17 +55,23 @@
                 Escolha um contato<br> para enviar mensagem:
             </div>
             <div class="contacts">
-                <div class="contact">
+                <div class="contact" onclick="select(this);">
                     <ion-icon name="people"></ion-icon> 
-                    <span>Todos</span>
+                    <div class="name-and-check">
+                        <span>Todos</span>
+                        <img src="images/Vector.png" alt="Marcado">
+                    </div>
                 </div>
-                <div class="contact">
-                    <ion-icon name="person-circle"></ion-icon>
-                    <span>João</span>
-                </div>
-                <div class="contact">
+                <div class="contact" onclick="select(this);">
                     <ion-icon name="person-circle"></ion-icon>
                     <div class="name-and-check">
+                        <span>João</span>
+                        <img src="images/Vector.png" alt="Marcado">
+                    </div>
+                </div>
+                <div class="contact" onclick="select(this);">
+                    <ion-icon name="person-circle"></ion-icon>
+                    <div class="name-and-check check-on">
                         <span>Maria</span>
                         <img src="images/Vector.png" alt="Marcado">
                     </div>
@@ -75,13 +81,16 @@
                 Escolha a visibilidade:
             </div>
             <div class="visibilities">
-                <div class="visibility">
+                <div class="visibility" onclick="select(this);">
                     <ion-icon name="lock-open"></ion-icon>
-                    <span>Público</span>
-                </div>
-                <div class="visibility">
-                    <ion-icon name="lock-closed"></ion-icon>
                     <div class="name-and-check">
+                        <span>Público</span>
+                        <img src="images/Vector.png" alt="Marcado">
+                    </div>
+                </div>
+                <div class="visibility" onclick="select(this);">
+                    <ion-icon name="lock-closed"></ion-icon>
+                    <div class="name-and-check check-on">
                         <span>Reservadamente</span>
                         <img src="images/Vector.png" alt="Marcado">
                     </div>

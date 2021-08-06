@@ -30,6 +30,7 @@ nav img {
 
 nav ion-icon {
     font-size: 45px;
+    cursor: pointer;
 }
 
 main {
@@ -163,6 +164,7 @@ input:focus {
     margin-left: 17px;
     display: flex;
     align-items: center;
+    cursor: pointer;
 }
 
 .contact:not(:last-child), .visibility:not(:last-child){
@@ -181,10 +183,15 @@ input:focus {
     width: 75%;
 }
 
+.name-and-check img{
+    display: none;
+}
+
 .visibility {
     margin-left: 20px;
     display: flex;
     align-items: center;
+    cursor: pointer;
 }
 
 .visibility ion-icon {
@@ -193,6 +200,10 @@ input:focus {
 }
 
 .display {
+    display: initial;
+}
+
+.check-on img{
     display: initial;
 }
 

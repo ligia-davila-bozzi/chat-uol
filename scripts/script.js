@@ -1,6 +1,6 @@
 let username;
 let lastMessage = {};
-
+let isFirstTime = true;
 function enterRoom(){
     username = prompt("Qual o seu nome?");
     const promise = axios.post("https://mock-api.bootcamp.respondeai.com.br/api/v3/uol/participants", {name: username});
@@ -9,6 +9,8 @@ function enterRoom(){
     promise.catch(validateName);
     setInterval(getMessages, 3000);
     setInterval(maintainConexion, 5000);
+    setInterval(getParticipants, 10000);
+    
 }
 
 function validateName(error){
@@ -26,6 +28,10 @@ function getMessages(){
     const promise = axios.get("https://mock-api.bootcamp.respondeai.com.br/api/v3/uol/messages");
 
     promise.then(showMessages);
+    if(isFirstTime){
+        getParticipants();
+        isFirstTime = false;
+    }
 }
 
 function showMessages(response){
@@ -59,7 +65,6 @@ function showMessages(response){
         }
     }
 
-
     scrollMessages();
 
 }
@@ -90,6 +95,12 @@ function sendMessage(){
 
     document.querySelector("input").value = "";
     promise.then(getMessages);
+    promise.catch(errorSendMessage);
+}
+
+function errorSendMessage(){
+    alert("Você não está mais logado. Por favor, logue novamente.");
+    window.location.reload();
 }
 
 function enterKey(){
@@ -100,7 +111,7 @@ function enterKey(){
     })
 }
 
-function showParticipants(){
+function showParticipantsMenu(){
     const modal = document.querySelector(".modal");
     modal.classList.add("display");
 
@@ -111,7 +122,48 @@ function showParticipants(){
     }
 }
 
+function getParticipants(){
+    const promise = axios.get("https://mock-api.bootcamp.respondeai.com.br/api/v3/uol/participants");
+
+    promise.then(showParticipants);
+}
+
+function showParticipants(participants){
+    document.querySelector(".contacts").innerHTML = "";
+    const contacts = document.querySelector(".contacts");
+    console.log(participants);
+
+    contacts.innerHTML += `
+        <div class="contact">
+            <ion-icon name="people"></ion-icon> 
+            <span>Todos</span>
+        </div>
+        `
+
+    for(let i = 0; i < participants.data.length; i++){
+        contacts.innerHTML += `
+        <div class="contact">
+            <ion-icon name="person-circle"></ion-icon> 
+            <span>${participants.data[i].name}</span>
+        </div>
+        `
+    }
+}
+
 enterKey();
 
+function select(element){
+    const contactsChecked = document.querySelector(".contacts .name-and-check.check-on");
+    const visibilitiesChecked = document.querySelector(".visibilities .name-and-check.check-on");
+
+    if(contactsChecked !== null && element.classList.contains("contact")){
+        contactsChecked.classList.remove("check-on");
+    }
+    if(visibilitiesChecked !== null && element.classList.contains("visibility")){
+        visibilitiesChecked.classList.remove("check-on");
+    }
+    
+    element.querySelector(".name-and-check").classList.add("check-on");
+}
 
 
