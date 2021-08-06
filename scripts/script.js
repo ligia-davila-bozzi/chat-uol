@@ -1,6 +1,9 @@
-let username;
+let username, checkedPerson;
 let lastMessage = {};
 let isFirstTime = true;
+let messageTo = "Todos", messageType = "message";
+
+
 function enterRoom(){
     username = prompt("Qual o seu nome?");
     const promise = axios.post("https://mock-api.bootcamp.respondeai.com.br/api/v3/uol/participants", {name: username});
@@ -9,7 +12,7 @@ function enterRoom(){
     promise.catch(validateName);
     setInterval(getMessages, 3000);
     setInterval(maintainConexion, 5000);
-    setInterval(getParticipants, 10000);
+    setInterval(getParticipants, 5000);
     
 }
 
@@ -84,13 +87,13 @@ function isItYou(messageName){
 }
 
 function sendMessage(){
-    const message = document.querySelector("input").value;
+    let message = document.querySelector("input").value;
 
     const promise = axios.post("https://mock-api.bootcamp.respondeai.com.br/api/v3/uol/messages", {
         from: username,
-        to: "Todos",
+        to: messageTo,
         text: message,
-        type: "message"
+        type: messageType
     });
 
     document.querySelector("input").value = "";
@@ -129,32 +132,64 @@ function getParticipants(){
 }
 
 function showParticipants(participants){
-    document.querySelector(".contacts").innerHTML = "";
     const contacts = document.querySelector(".contacts");
+    contacts.innerHTML = "";
     console.log(participants);
 
-    contacts.innerHTML += `
-        <div class="contact">
-            <ion-icon name="people"></ion-icon> 
-            <span>Todos</span>
-        </div>
-        `
-
-    for(let i = 0; i < participants.data.length; i++){
+    if(checkedPerson === undefined){
         contacts.innerHTML += `
-        <div class="contact">
-            <ion-icon name="person-circle"></ion-icon> 
-            <span>${participants.data[i].name}</span>
+        <div class="contact" onclick="select(this);">
+            <ion-icon name="people"></ion-icon> 
+            <div class="name-and-check everyone check-on">
+                <span>Todos</span>
+                <img src="images/Vector.png" alt="Marcado">
+            </div>
         </div>
         `
     }
+    else{
+        contacts.innerHTML += `
+        <div class="contact" onclick="select(this);">
+            <ion-icon name="people"></ion-icon> 
+            <div class="name-and-check everyone">
+                <span>Todos</span>
+                <img src="images/Vector.png" alt="Marcado">
+            </div>
+        </div>
+        `
+    }
+    
+
+    for(let i = 0; i < participants.data.length; i++){
+        if(checkedPerson === participants.data[i].name){
+            contacts.innerHTML += `
+            <div class="contact" onclick="select(this);">
+                <ion-icon name="person-circle"></ion-icon>
+                <div class="name-and-check check-on participant">
+                    <span>${participants.data[i].name}</span>
+                    <img src="images/Vector.png" alt="Marcado">
+                </div>
+            </div>
+            `
+        }
+        else{
+            contacts.innerHTML += `
+            <div class="contact" onclick="select(this);">
+                <ion-icon name="person-circle"></ion-icon>
+                <div class="name-and-check participant">
+                    <span>${participants.data[i].name}</span>
+                    <img src="images/Vector.png" alt="Marcado">
+                </div>
+            </div>
+            `
+        }
+        
+    }
 }
 
-enterKey();
-
 function select(element){
-    const contactsChecked = document.querySelector(".contacts .name-and-check.check-on");
-    const visibilitiesChecked = document.querySelector(".visibilities .name-and-check.check-on");
+    let contactsChecked = document.querySelector(".contacts .check-on");
+    let visibilitiesChecked = document.querySelector(".visibilities .check-on");
 
     if(contactsChecked !== null && element.classList.contains("contact")){
         contactsChecked.classList.remove("check-on");
@@ -162,8 +197,72 @@ function select(element){
     if(visibilitiesChecked !== null && element.classList.contains("visibility")){
         visibilitiesChecked.classList.remove("check-on");
     }
-    
+
     element.querySelector(".name-and-check").classList.add("check-on");
+
+    if(document.querySelector(".visibilities .check-on span").innerHTML === "Público" && document.querySelector(".contacts .check-on span").innerHTML !== "Todos"){
+        document.querySelector(".contacts .check-on").classList.remove("check-on");
+        document.querySelector(".contacts .everyone").classList.add("check-on");
+    }
+
+    if(document.querySelector(".visibilities .check-on span").innerHTML === "Reservadamente" &&document.querySelector(".contacts .everyone").classList.contains("check-on")){
+        document.querySelector(".contacts .everyone").classList.remove("check-on");
+        document.querySelector(".contacts .participant").classList.add("check-on");
+    }
+
+    if(document.querySelector(".contact .check-on").classList.contains("participant")){
+        checkedPerson = document.querySelector(".contact .check-on span").innerHTML;
+    }
+
+    if(document.querySelector(".visibility .check-on").classList.contains("public")){
+        checkedPerson = undefined;
+    }
+
+    
+
+    console.log(checkedPerson);
+    checkReserved();
 }
 
+function checkReserved(){
+    const reserved = document.querySelector(".reserved");
+    const newContactChecked = document.querySelector(".contacts .check-on");
 
+    if(reserved.classList.contains("check-on") && newContactChecked !== null){
+        sendReservedMessage(true, newContactChecked.querySelector("span").innerHTML);
+    }
+    else{
+        sendReservedMessage(false, "Todos");
+    }
+}
+
+function sendReservedMessage(isReservedChecked, receiver){
+    const textBox = document.querySelector(".text-box");
+    textBox.innerHTML = "";
+    if(isReservedChecked){
+        textBox.innerHTML = `
+        <div class="write-here">
+            <input type="text" placeholder="Escreva aqui...">
+            <span>Enviando para ${receiver} (reservadamente)</span>
+        </div>
+        <ion-icon name="paper-plane-outline" onclick="sendMessage();" class="send-button"></ion-icon>
+        `
+
+        messageTo = receiver;
+        messageType = "private_message";
+        enterKey();
+    }
+    else{
+        textBox.innerHTML = `
+        <input type="text" placeholder="Escreva aqui...">
+        <ion-icon name="paper-plane-outline" onclick="sendMessage();" class="send-button"></ion-icon>
+        `
+
+        messageTo = receiver;
+        messageType = "message";
+        enterKey();
+    }
+}
+
+enterKey();
+enterRoom();

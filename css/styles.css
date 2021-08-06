@@ -110,6 +110,22 @@ input:focus {
     outline: none;
 }
 
+.write-here{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    height: 64px;
+    margin-top: 15px;
+    margin-bottom: 1px;
+    line-height: 25px;
+}
+
+.write-here span{
+    font-weight: 300;
+    font-size: 14px;
+    color: #505050;
+}
+
 .text-box ion-icon {
     font-size: 26px;
 }

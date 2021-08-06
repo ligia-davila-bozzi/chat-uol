@@ -46,6 +46,10 @@
 
     <div class="text-box">
         <input type="text" placeholder="Escreva aqui...">
+        <!-- <div class="write-here">
+            
+            <span>Enviando para Maria (reservadamente)</span>
+        </div> -->
         <ion-icon name="paper-plane-outline" onclick="sendMessage();" class="send-button"></ion-icon>
     </div>
 
@@ -57,21 +61,21 @@
             <div class="contacts">
                 <div class="contact" onclick="select(this);">
                     <ion-icon name="people"></ion-icon> 
-                    <div class="name-and-check">
+                    <div class="name-and-check everyone check-on">
                         <span>Todos</span>
                         <img src="images/Vector.png" alt="Marcado">
                     </div>
                 </div>
                 <div class="contact" onclick="select(this);">
                     <ion-icon name="person-circle"></ion-icon>
-                    <div class="name-and-check">
+                    <div class="name-and-check participant">
                         <span>João</span>
                         <img src="images/Vector.png" alt="Marcado">
                     </div>
                 </div>
                 <div class="contact" onclick="select(this);">
                     <ion-icon name="person-circle"></ion-icon>
-                    <div class="name-and-check check-on">
+                    <div class="name-and-check participant">
                         <span>Maria</span>
                         <img src="images/Vector.png" alt="Marcado">
                     </div>
@@ -83,14 +87,14 @@
             <div class="visibilities">
                 <div class="visibility" onclick="select(this);">
                     <ion-icon name="lock-open"></ion-icon>
-                    <div class="name-and-check">
+                    <div class="name-and-check public check-on">
                         <span>Público</span>
                         <img src="images/Vector.png" alt="Marcado">
                     </div>
                 </div>
                 <div class="visibility" onclick="select(this);">
                     <ion-icon name="lock-closed"></ion-icon>
-                    <div class="name-and-check check-on">
+                    <div class="name-and-check reserved">
                         <span>Reservadamente</span>
                         <img src="images/Vector.png" alt="Marcado">
                     </div>
