@@ -55,6 +55,9 @@ pre {
     overflow-wrap: break-word;
     white-space: pre-wrap;
     hyphens: auto;
+    -webkit-hyphens: auto;
+    -moz-hyphens: auto;
+    -ms-hyphens: auto;
 }
 
 .status {
