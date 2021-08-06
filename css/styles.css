@@ -1,13 +1,13 @@
-*{
+* {
     box-sizing: border-box;
 }
 
-body{
+body {
     font-family: 'Roboto', sans-serif;
     background-color: #f3f3f3;
 }
 
-nav{
+nav {
     height: 80px;
     display: flex;
     align-items: center;
@@ -23,16 +23,16 @@ nav{
     background-color: #FFFFFF;
 }
 
-nav img{
+nav img {
     width: 75px;
     height: 53px;
 }
 
-nav ion-icon{
+nav ion-icon {
     font-size: 45px;
 }
 
-main{
+main {
     height: 100%;
     padding-top: 26px;
     font-size: 14px;
@@ -40,7 +40,7 @@ main{
     margin-bottom: 84px;
 }
 
-main div{
+main div {
     border-radius: 2px;
     margin-bottom: 4px;
     min-height: 40px;
@@ -50,32 +50,32 @@ main div{
     line-height: 20px;
 }
 
-pre{
+pre {
     white-space: pre-wrap;
     overflow-wrap: break-word;
 }
 
-.status{
+.status {
     background-color: #DCDCDC;
 }
 
-.message{
+.message {
     background-color: #FFFFFF;
 }
 
-.private_message{
+.private_message {
     background-color: #FFDEDE;
 }
 
-.time{
+.time {
     color: #AAAAAA;
 }
 
-.person{
+.person {
     font-weight: 700;
 }
 
-.text-box{
+.text-box {
     position:fixed;
     z-index: 1;
     bottom: 0;
@@ -91,13 +91,13 @@ pre{
     box-shadow: 0px -4px 6px rgba(0, 0, 0, 0.05);
 }
 
-input{
+input {
     border: none;
     font-family: inherit;
     font-size: 18px;
 }
 
-input::placeholder{
+input::placeholder {
     font-weight: 400;
     font-style: italic;
     font-size: 18px;
@@ -105,15 +105,15 @@ input::placeholder{
     opacity: 1;
 }
 
-input:focus{
+input:focus {
     outline: none;
 }
 
-.text-box ion-icon{
+.text-box ion-icon {
     font-size: 26px;
 }
 
-.modal{
+.modal {
     width: 100%;
     height: 100%;
     position: fixed;
@@ -125,7 +125,7 @@ input:focus{
     display: none;
 }
 
-.sidebar{
+.sidebar {
     width: 69%;
     height: 100%;
     background-color: #FFFFFF;
@@ -135,7 +135,7 @@ input:focus{
     font-size: 16px;
 }
 
-.choose-contact{
+.choose-contact {
     font-weight: 700;
     height: 84px;
     width: 100%;
@@ -145,7 +145,7 @@ input:focus{
     text-align: center;
 }
 
-.choose-visibility{
+.choose-visibility {
     font-weight: 700;
     height: 66px;
     width: 100%;
@@ -154,7 +154,12 @@ input:focus{
     align-items: center;
 }
 
-.contact{
+.contacts {
+    overflow-y: auto;
+    max-height: 114px;
+}
+
+.contact {
     margin-left: 17px;
     display: flex;
     align-items: center;
@@ -164,28 +169,30 @@ input:focus{
     margin-bottom: 10px;
 }
 
-.contact ion-icon{
+.contact ion-icon {
     font-size: 25px;
     margin-right: 7px;
 }
 
-.name-and-check{
+.name-and-check {
     display: flex;
     align-items: center;
     justify-content: space-between;
     width: 75%;
 }
 
-.visibility{
+.visibility {
     margin-left: 20px;
     display: flex;
     align-items: center;
 }
 
-.visibility ion-icon{
+.visibility ion-icon {
     font-size: 22px;
     margin-right: 7px;
 }
 
-
+.display {
+    display: initial;
+}
 

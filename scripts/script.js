@@ -102,7 +102,13 @@ function enterKey(){
 
 function showParticipants(){
     const modal = document.querySelector(".modal");
-    modal.style.display = "initial";
+    modal.classList.add("display");
+
+    window.onclick = function(event){
+        if(event.target === modal){
+            modal.classList.remove("display");
+        }
+    }
 }
 
 enterKey();
