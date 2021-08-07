@@ -1,11 +1,16 @@
-let username, checkedPerson;
+let username, checkedPerson
 let lastMessage = {};
 let isFirstTime = true;
 let messageTo = "Todos", messageType = "message";
 
+function enter(){
+    const login = document.querySelector(".login");
+    username = document.querySelector(".username").value;
+    login.style.display = "none";
+    enterRoom();
+}
 
 function enterRoom(){
-    username = prompt("Qual o seu nome?");
     const promise = axios.post("https://mock-api.bootcamp.respondeai.com.br/api/v3/uol/participants", {name: username});
 
     promise.then(getMessages);
@@ -19,7 +24,8 @@ function enterRoom(){
 function validateName(error){
     if(error.response.status === 400){
         alert("Usuário já existente!");
-        enterRoom();
+        const login = document.querySelector(".login");
+        login.style.display = "flex";
     }
 }
 
@@ -87,7 +93,7 @@ function isItYou(messageName){
 }
 
 function sendMessage(){
-    let message = document.querySelector("input").value;
+    let message = document.querySelector(".type-message").value;
 
     const promise = axios.post("https://mock-api.bootcamp.respondeai.com.br/api/v3/uol/messages", {
         from: username,
@@ -96,18 +102,19 @@ function sendMessage(){
         type: messageType
     });
 
-    document.querySelector("input").value = "";
+    document.querySelector(".type-message").value = "";
     promise.then(getMessages);
     promise.catch(errorSendMessage);
 }
 
 function errorSendMessage(){
     alert("Você não está mais logado. Por favor, logue novamente.");
-    window.location.reload();
+    const login = document.querySelector(".login");
+    login.style.display = "flex";
 }
 
 function enterKey(){
-    document.querySelector("input").addEventListener("keypress", function(event){
+    document.querySelector(".type-message").addEventListener("keypress", function(event){
         if(event.keyCode === 13){
             document.querySelector(".send-button").click();
         }
@@ -237,7 +244,7 @@ function sendReservedMessage(isReservedChecked, receiver){
     if(isReservedChecked){
         textBox.innerHTML = `
         <div class="write-here">
-            <input type="text" placeholder="Escreva aqui...">
+            <input type="text" placeholder="Escreva aqui..." class="type-message">
             <span>Enviando para ${receiver} (reservadamente)</span>
         </div>
         <ion-icon name="paper-plane-outline" onclick="sendMessage();" class="send-button"></ion-icon>
@@ -249,7 +256,7 @@ function sendReservedMessage(isReservedChecked, receiver){
     }
     else{
         textBox.innerHTML = `
-        <input type="text" placeholder="Escreva aqui...">
+        <input type="text" placeholder="Escreva aqui..." class="type-message">
         <ion-icon name="paper-plane-outline" onclick="sendMessage();" class="send-button"></ion-icon>
         `
 
@@ -260,4 +267,3 @@ function sendReservedMessage(isReservedChecked, receiver){
 }
 
 enterKey();
-enterRoom();
