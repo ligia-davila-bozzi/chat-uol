@@ -1,31 +1,42 @@
-let username, checkedPerson
+let username, checkedPerson, idMessages, idConexion, idParticipants;
 let lastMessage = {};
 let isFirstTime = true;
 let messageTo = "Todos", messageType = "message";
 
-function enter(){
-    const login = document.querySelector(".login");
+function signin(){
+    loading("none", "flex", "none");
     username = document.querySelector(".username").value;
-    login.style.display = "none";
     enterRoom();
 }
+
+function loading(loginScreenDisplay, loadingScreenDisplay, mainDisplay){
+    const login = document.querySelector(".login");
+    const loadingScreen = document.querySelector(".loading-screen");
+    const main = document.querySelector("main");
+
+    login.style.display = loginScreenDisplay;
+    loadingScreen.style.display = loadingScreenDisplay;
+    main.style.display = mainDisplay;
+}
+
 
 function enterRoom(){
     const promise = axios.post("https://mock-api.bootcamp.respondeai.com.br/api/v3/uol/participants", {name: username});
 
-    promise.then(getMessages);
+    promise.then(getMessages).then(setIntervals);
     promise.catch(validateName);
-    setInterval(getMessages, 3000);
-    setInterval(maintainConexion, 5000);
-    setInterval(getParticipants, 10000);
-    
+}
+
+function setIntervals(){
+    idMessages = setInterval(getMessages, 3000);
+    idConexion = setInterval(maintainConexion, 5000);
+    idParticipants = setInterval(getParticipants, 10000);
 }
 
 function validateName(error){
     if(error.response.status === 400){
         alert("Usuário já existente!");
-        const login = document.querySelector(".login");
-        login.style.display = "flex";
+        loading("flex", "none", "none");
     }
 }
 
@@ -41,6 +52,8 @@ function getMessages(){
         getParticipants();
         isFirstTime = false;
     }
+
+    
 }
 
 function showMessages(response){
@@ -73,6 +86,9 @@ function showMessages(response){
             }
         }
     }
+
+    loading("none", "none", "block");
+    
 
     scrollMessages();
 
@@ -109,8 +125,10 @@ function sendMessage(){
 
 function errorSendMessage(){
     alert("Você não está mais logado. Por favor, logue novamente.");
-    const login = document.querySelector(".login");
-    login.style.display = "flex";
+    loading("flex", "none", "none");
+    clearTimeout(idMessages);
+    clearTimeout(idConexion);
+    clearTimeout(idParticipants);
 }
 
 function enterKey(){
