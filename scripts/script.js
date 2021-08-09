@@ -1,10 +1,10 @@
-let username, checkedPerson, idMessages, idConexion, idParticipants;
+let username, idMessages, idConexion, idParticipants;
 let lastMessage = {};
-let isFirstTime = true;
+let checkedPerson = "Todos";
 let messageTo = "Todos", messageType = "message";
 
 function signin(){
-    loading("none", "flex", "none");
+    loading("none", "flex", "block");
     username = document.querySelector(".username").value;
     enterRoom();
 }
@@ -28,6 +28,7 @@ function enterRoom(){
 }
 
 function setIntervals(){
+    getParticipants();
     idMessages = setInterval(getMessages, 3000);
     idConexion = setInterval(maintainConexion, 5000);
     idParticipants = setInterval(getParticipants, 10000);
@@ -41,19 +42,13 @@ function validateName(error){
 }
 
 function maintainConexion(){
-    const promise = axios.post("https://mock-api.bootcamp.respondeai.com.br/api/v3/uol/status", {name: username});
+    axios.post("https://mock-api.bootcamp.respondeai.com.br/api/v3/uol/status", {name: username});
 }
 
 function getMessages(){
     const promise = axios.get("https://mock-api.bootcamp.respondeai.com.br/api/v3/uol/messages");
 
-    promise.then(showMessages);
-    if(isFirstTime){
-        getParticipants();
-        isFirstTime = false;
-    }
-
-    
+    promise.then(showMessages);    
 }
 
 function showMessages(response){
@@ -160,7 +155,7 @@ function showParticipants(participants){
     const contacts = document.querySelector(".contacts");
     contacts.innerHTML = "";
 
-    if(checkedPerson === undefined){
+    if(checkedPerson === "Todos"){
         contacts.innerHTML += `
         <div class="contact" onclick="select(this);">
             <ion-icon name="people"></ion-icon> 
@@ -229,7 +224,7 @@ function select(element){
         document.querySelector(".contacts .everyone").classList.add("check-on");
     }
 
-    if(document.querySelector(".visibilities .check-on span").innerHTML === "Reservadamente" &&document.querySelector(".contacts .everyone").classList.contains("check-on")){
+    if(document.querySelector(".visibilities .check-on span").innerHTML === "Reservadamente" && document.querySelector(".contacts .everyone").classList.contains("check-on")){
         document.querySelector(".contacts .everyone").classList.remove("check-on");
         document.querySelector(".contacts .participant").classList.add("check-on");
     }
@@ -238,7 +233,7 @@ function select(element){
         checkedPerson = document.querySelector(".contact .check-on span").innerHTML;
     }
     else{
-        checkedPerson = undefined;
+        checkedPerson = "Todos";
     }
 
     checkReserved();
