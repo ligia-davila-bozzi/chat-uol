@@ -4,7 +4,7 @@ let checkedPerson = "Todos";
 let messageTo = "Todos", messageType = "message";
 
 function signin(){
-    loading("none", "flex", "block");
+    loading("none", "flex", "none");
     username = document.querySelector(".username").value;
     enterRoom();
 }
